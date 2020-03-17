@@ -1,22 +1,33 @@
 {
 	"version": "2.0.0",
 	"tasks": [
-	{
-	"label": "Flutter-Launch-All",
-	"dependsOn": [
-	"Flutter-Launch-iOS",
-	"Flutter-Launch-Android" 
-	]
-	},
-	{
-	"label": "Flutter-Launch-Android",
-	"type": "shell",
-	"command": "flutter run -d 'emulator-5554' "
-	},
-	{
-	"label": "Flutter-Launch-iOS",
-	"type": "shell",
-	"command": "flutter run -d '4b28567e67f126a3efcb2e1e65f8c4778f18f4c3' "
-	} 
+		{
+			"label": "Flutter-Launch-All",
+			"dependsOn": [
+				"Flutter-Launch-iOS",
+				"Flutter-Launch-Android" 
+			]
+		},
+		{
+			"label": "Flutter-Launch-Android",
+			"type": "shell",
+			"command": "flutter run -d 'emulator-5554' "
+		},
+		{
+			"label": "Flutter-Launch-iOS",
+			"type": "shell",
+			"command": "flutter run -d '4b28567e67f126a3efcb2e1e65f8c4778f18f4c3' "
+		},
+		{
+			"label": "Flutter-Launch-iOS-emulator",
+			"type": "shell",
+			"command": "flutter run -d '23584D16-D748-496F-90DC-AD10BE3EA1E7' "
+		},
+		{
+			"label": "Flutter-Launch-iOS-8-emulator",
+			"type": "shell",
+			"command": "flutter run -d '39509FB0-5AD1-4C3B-8C8B-B448C659F397' "
+		}
+		
 	]
 }

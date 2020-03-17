@@ -3,24 +3,37 @@
 	// Hover to view descriptions of existing attributes.
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
-	"configurations": [
-	{
-	"name": "Flutter-All",
-	"preLaunchTask": "Flutter-Launch-All",
-	"request": "launch",
-	"type": "dart",
-	},
-	{
-	"name": "Flutter-iOS",
-	"preLaunchTask": "Flutter-Launch-iOS",
-	"request": "launch", 
-	"type": "dart"
-	},
-	{
-	"name": "Flutter-Android",
-	"preLaunchTask": "Flutter-Launch-Android",
-	"request": "launch", 
-	"type": "dart"
-	}
+"configurations": 
+	[
+		{
+			"name": "Flutter-All",
+			"preLaunchTask": "Flutter-Launch-All",
+			"request": "launch",
+			"type": "dart",
+		},
+		{
+			"name": "Flutter-iOS",
+			"preLaunchTask": "Flutter-Launch-iOS",
+			"request": "launch", 
+			"type": "dart"
+		},
+		{
+			"name": "Flutter-Android",
+			"preLaunchTask": "Flutter-Launch-Android",
+			"request": "launch", 
+			"type": "dart"
+		},
+		{
+			"name": "Flutter-iOS-emulator",
+			"preLaunchTask": "Flutter-Launch-iOS-emulator",
+			"request": "launch", 
+			"type": "dart"
+		},
+		{
+			"name": "Flutter-Launch-iOS-8-emulator",
+			"preLaunchTask": "Flutter-Launch-iOS-8-emulator",
+			"request": "launch", 
+			"type": "dart"
+		}
 	]
-	}
+}

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_p_league_mobileapp/screens/landing-page/landing-page.dart';
 
+import 'screens/home-page/home-page.dart';
 import 'theme.dart' as PLeagueTheme;
 import 'package:wakelock/wakelock.dart';
 
@@ -17,6 +18,9 @@ class PLeagueApp extends StatelessWidget {
       title: 'The P League',
       theme: PLeagueTheme.myTheme,
       home: LandingPage(title: 'The P League'),
+      routes: {
+        '/home': (context) => HomePage(),
+      },
     );
   }
 }

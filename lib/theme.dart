@@ -36,7 +36,7 @@
       padding: EdgeInsets.only(top:0,bottom:0,left:16, right:16),
       shape:     RoundedRectangleBorder(
       side: BorderSide(color: Color( 0xff000000 ), width: 0, style: BorderStyle.none, ),
-      borderRadius: BorderRadius.all(Radius.circular(2.0)),
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
     )
  ,
       alignedDropdown: false ,
@@ -125,7 +125,7 @@
     ),
       button: TextStyle(
       color: Color( 0xdd000000 ),
-      fontSize: null,
+      fontSize: 20,
       fontWeight: FontWeight.w400,
       fontStyle: FontStyle.normal,
     ),
@@ -176,8 +176,8 @@
       title: TextStyle(
       color: Color( 0xffffffff ),
       fontSize: null,
-      fontWeight: FontWeight.w400,
-      fontStyle: FontStyle.normal,
+      fontWeight: FontWeight.w800,
+      fontStyle: FontStyle.italic,
     ),
       subhead: TextStyle(
       color: Color( 0xffffffff ),
@@ -204,9 +204,10 @@
       fontStyle: FontStyle.normal,
     ),
       button: TextStyle(
+      // color: Color.fromRGBO(185, 142, 88, 1),
       color: Color( 0xffffffff ),
-      fontSize: null,
-      fontWeight: FontWeight.w400,
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
       fontStyle: FontStyle.normal,
     ),
       subtitle: TextStyle(
