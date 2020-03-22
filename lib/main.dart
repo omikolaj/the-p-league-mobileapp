@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:the_p_league_mobileapp/screens/landing-page/landing-page.dart';
-
 import 'screens/home-page/home-page.dart';
 import 'theme.dart' as PLeagueTheme;
 import 'package:wakelock/wakelock.dart';
 
-void main() => {
-  Wakelock.enable(),
-  runApp(PLeagueApp())
-};
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(PLeagueApp());
+}
 
 class PLeagueApp extends StatelessWidget {
   // This widget is the root of your application.

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:the_p_league_mobileapp/models/gallery-image.dart';
+import 'package:the_p_league_mobileapp/screens/gallery-page/gallery-page.dart';
+import 'package:the_p_league_mobileapp/services/gallery-service.dart';
+import 'package:the_p_league_mobileapp/widgets/buttons/primary-button.dart';
 
 class HomePage extends StatefulWidget{
   HomePage({Key key}) : super(key: key);
@@ -9,9 +13,10 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage>{
-  int _selectedIndex = 0;
+  int _selectedIndex = 0;    
+
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _menuOptions = <Widget>[
+  final List<Widget> _menuOptions = <Widget>[
     Text(
       'Schedules',
       style: optionStyle
@@ -19,15 +24,14 @@ class _HomePageState extends State<HomePage>{
     Text(
       'Stats',
       style: optionStyle
-    ),
-    Text(
-      'Gallery',
-      style: optionStyle,
-    )
+    ),    
+    GalleryPage(key: PageStorageKey('gallery'))
   ];
 
+  
+
   void _onMenuSelected(int index){
-    setState(() {
+    setState(() {      
       _selectedIndex = index;
     });
   }
@@ -53,7 +57,7 @@ class _HomePageState extends State<HomePage>{
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.image),
-          title: Text('Gallery'),
+          title: Text('Gallery'),          
         ),
       ],
       currentIndex: _selectedIndex,

@@ -12,7 +12,7 @@ class PrimaryButton extends StatelessWidget {
       height: 50.0,
       child: RaisedButton(
         elevation: 8.0,
-        onPressed: () => this.onPressedCallback,
+        onPressed: this.onPressedCallback,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         padding: EdgeInsets.all(0.0),
         child: Ink(
