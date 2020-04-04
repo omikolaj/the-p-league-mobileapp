@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:the_p_league_mobileapp/models/gallery-image.dart';
 import 'package:the_p_league_mobileapp/screens/gallery-page/gallery-page.dart';
-import 'package:the_p_league_mobileapp/services/gallery-service.dart';
-import 'package:the_p_league_mobileapp/widgets/buttons/primary-button.dart';
 
 class HomePage extends StatefulWidget{
   HomePage({Key key}) : super(key: key);
@@ -25,7 +22,7 @@ class _HomePageState extends State<HomePage>{
       'Stats',
       style: optionStyle
     ),    
-    GalleryPage(key: PageStorageKey('gallery'))
+    GalleryPage()
   ];
 
   
