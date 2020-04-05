@@ -3,8 +3,6 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:the_p_league_mobileapp/models/gallery-image.dart';
 
-import 'gallery-page.dart';
-
 class GalleryPhotoViewWrapper extends StatefulWidget {
   GalleryPhotoViewWrapper({
     this.loadingBuilder,
@@ -57,16 +55,19 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
         child: Stack(
           alignment: Alignment.bottomRight,
           children: <Widget>[
-            PhotoViewGallery.builder(
-              scrollPhysics: const BouncingScrollPhysics(),
-              builder: _buildItem,
-              itemCount: widget.galleryItems.length,
-              loadingBuilder: widget.loadingBuilder,
-              backgroundDecoration: widget.backgroundDecoration,
-              pageController: widget.pageController,
-              onPageChanged: onPageChanged,
-              scrollDirection: widget.scrollDirection              
-            ),
+            GestureDetector(
+                onVerticalDragUpdate: (dragUpdateDetails) {
+                  Navigator.pop(context);
+                },
+                child: PhotoViewGallery.builder(
+                    scrollPhysics: const BouncingScrollPhysics(),
+                    builder: _buildItem,
+                    itemCount: widget.galleryItems.length,
+                    loadingBuilder: widget.loadingBuilder,
+                    backgroundDecoration: widget.backgroundDecoration,
+                    pageController: widget.pageController,
+                    onPageChanged: onPageChanged,                    
+                    scrollDirection: widget.scrollDirection)),
             Container(
               padding: const EdgeInsets.all(20.0),
               child: Text(
@@ -87,14 +88,14 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     final GalleryImage item = widget.galleryItems[index];
     return PhotoViewGalleryPageOptions(
-            imageProvider: NetworkImage(item.url),
-            initialScale: PhotoViewComputedScale.contained,
-            minScale: PhotoViewComputedScale.contained * .8,
-            maxScale: PhotoViewComputedScale.covered * 3.1,
-            heroAttributes: PhotoViewHeroAttributes(tag: item.id),
-            onTapUp: (context, details, controllerValue) {
-              Navigator.pop(context);
-            }
-          );
+        imageProvider: NetworkImage(item.url),
+        initialScale: PhotoViewComputedScale.contained,
+        minScale: PhotoViewComputedScale.contained * .8,
+        maxScale: PhotoViewComputedScale.covered * 3.1,
+        heroAttributes: PhotoViewHeroAttributes(tag: item.id),
+        // onTapUp: (context, details, controllerValue) {
+        //   Navigator.pop(context);          
+        // }
+      );
   }
 }

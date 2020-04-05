@@ -19,7 +19,8 @@ class GalleryPage extends StatefulWidget {
 class _GalleryPageState extends State<GalleryPage> {
   Future<List<GalleryImage>> futureGalleryImages;
   bool verticalGallery = false;
-  
+  Widget imageListView;
+
   @override
   void initState() {
     super.initState();
@@ -33,12 +34,12 @@ class _GalleryPageState extends State<GalleryPage> {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return CircularProgressIndicator();
+            return CircularProgressIndicator();            
           default:
             if (snapshot.hasError)
               return Text('Error: ${snapshot.error}');
-            else
-              return _createListView(context, snapshot);
+            else              
+              return _createListView(context, snapshot);              
         }
       },
     );
