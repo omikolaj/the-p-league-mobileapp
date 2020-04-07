@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_p_league_mobileapp/screens/gallery-page/gallery-page.dart';
+import 'package:the_p_league_mobileapp/screens/schedules-page/schedules-page.dart';
 
 class HomePage extends StatefulWidget{
   HomePage({Key key}) : super(key: key);
@@ -14,10 +15,7 @@ class _HomePageState extends State<HomePage>{
 
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _menuOptions = <Widget>[
-    Text(
-      'Schedules',
-      style: optionStyle
-    ),
+    SchedulesPage(),
     Text(
       'Stats',
       style: optionStyle

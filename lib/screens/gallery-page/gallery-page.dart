@@ -18,8 +18,7 @@ class GalleryPage extends StatefulWidget {
 
 class _GalleryPageState extends State<GalleryPage> {
   Future<List<GalleryImage>> futureGalleryImages;
-  bool verticalGallery = false;
-  Widget imageListView;
+  bool verticalGallery = false;  
 
   @override
   void initState() {
