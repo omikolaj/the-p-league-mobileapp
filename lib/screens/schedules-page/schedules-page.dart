@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:the_p_league_mobileapp/models/p-league-match.dart';
+import 'package:the_p_league_mobileapp/models/p-league-session.dart';
 import 'package:the_p_league_mobileapp/services/schedules-service.dart';
 
 class SchedulesPage extends StatefulWidget {
@@ -11,7 +12,7 @@ class SchedulesPage extends StatefulWidget {
 }
 
 class _SchedulesPageState extends State<SchedulesPage> {
-  Future<List<PLeagueMatch>> futureScheduledMatches;
+  Future<List<PLeagueSession>> futureScheduledMatches;
   
   @override
   void initState() {
@@ -42,24 +43,26 @@ class _SchedulesPageState extends State<SchedulesPage> {
   }
 
   Widget _createTableView(BuildContext context, AsyncSnapshot snapshot) {
-    List<PLeagueMatch> scheduledMatches = snapshot.data;
+    List<PLeagueSession> sessions = snapshot.data;
+    List<PLeagueMatch> scheduledMatches = sessions.expand((session) => session.matches).toList();
+
     List<DataRow> rows = new List<DataRow>();
-    for(var i = 0; i < 3; i++){
+    for(var i = 0; i < scheduledMatches.length; i++){
       rows.add(
         DataRow(
           cells: [
             DataCell(
-              // Text(scheduledMatches[i].homeTeamName)              
-              Text("Barca")
+              Text(scheduledMatches[i].homeTeamName)                            
             ),
             DataCell(
-              // Text(scheduledMatches[i].matchResult.score),             
-              Text("5:2")
+              Text(scheduledMatches[i].matchResult.score ?? "0 : 0"),                           
             ),
             DataCell(
-              // Text(scheduledMatches[i].awayTeamName)              
-              Text("Juve")
-            ) 
+              Text(scheduledMatches[i].awayTeamName)                            
+            ),
+            DataCell(
+              Text(scheduledMatches[i].dateTime.toString())                            
+            )
           ]
         )
       );
@@ -70,7 +73,7 @@ class _SchedulesPageState extends State<SchedulesPage> {
         DataColumn(label: Text("Home")),
         DataColumn(label: Text("Result")),
         DataColumn(label: Text("Away")),
-        // DataColumn(label: Text("Date"))
+        DataColumn(label: Text("Date"))
       ],
       rows: rows,
     );

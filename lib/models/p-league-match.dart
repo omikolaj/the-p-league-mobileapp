@@ -2,7 +2,7 @@ import 'package:the_p_league_mobileapp/models/match-result.dart';
 
 class PLeagueMatch{
   final String id;
-  final BigInt dateTime;
+  final int dateTime;
   final String homeTeamName;
   final String homeTeamId;  
   final String awayTeamName;
@@ -33,7 +33,7 @@ class PLeagueMatch{
       awayTeamId: json["awayTeamId"],
       sessionId: json["sessionId"],
       leagueId: json["leagueID"],
-      //matchResult: MatchResult.fromJson(json["matchResult"]),
+      matchResult: MatchResult.fromJson(json["matchResult"]),
     );
   }
 }

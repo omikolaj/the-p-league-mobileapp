@@ -34,7 +34,7 @@ class MatchResult{
       matchResultId: json["matchResultId"],
       matchId: json["matchId"],
       leagueId: json["leagueId"],
-      status: json["status"],
+      status: MatchStatus.values[json["status"]],
       awayTeamScore: json["awayTeamScore"],
       awayTeamId: json["awayTeamId"],
       homeTeamScore: json["homeTeamScore"],
