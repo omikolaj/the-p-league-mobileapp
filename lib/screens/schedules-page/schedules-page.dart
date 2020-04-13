@@ -13,7 +13,7 @@ class SchedulesPage extends StatefulWidget {
 
 class _SchedulesPageState extends State<SchedulesPage> {
   Future<List<PLeagueSession>> futureScheduledMatches;
-  
+
   @override
   void initState() {
     super.initState();
@@ -25,18 +25,19 @@ class _SchedulesPageState extends State<SchedulesPage> {
   }
 
   @override
-  Widget build(BuildContext context) {   
+  Widget build(BuildContext context) {
     return FutureBuilder(
       future: this.futureScheduledMatches,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            return CircularProgressIndicator();            
+            return CircularProgressIndicator();
           default:
             if (snapshot.hasError)
               return Text('Error: ${snapshot.error}');
-            else              
-              return _createTableView(context, snapshot);              
+            else
+              return SingleChildScrollView(
+                  child: _createTableView(context, snapshot));
         }
       },
     );
@@ -44,28 +45,19 @@ class _SchedulesPageState extends State<SchedulesPage> {
 
   Widget _createTableView(BuildContext context, AsyncSnapshot snapshot) {
     List<PLeagueSession> sessions = snapshot.data;
-    List<PLeagueMatch> scheduledMatches = sessions.expand((session) => session.matches).toList();
+    List<PLeagueMatch> scheduledMatches =
+        sessions.expand((session) => session.matches).toList();
 
     List<DataRow> rows = new List<DataRow>();
-    for(var i = 0; i < scheduledMatches.length; i++){
-      rows.add(
-        DataRow(
-          cells: [
-            DataCell(
-              Text(scheduledMatches[i].homeTeamName)                            
-            ),
-            DataCell(
-              Text(scheduledMatches[i].matchResult.score ?? "0 : 0"),                           
-            ),
-            DataCell(
-              Text(scheduledMatches[i].awayTeamName)                            
-            ),
-            DataCell(
-              Text(scheduledMatches[i].dateTime.toString())                            
-            )
-          ]
-        )
-      );
+    for (var i = 0; i < scheduledMatches.length; i++) {
+      rows.add(DataRow(cells: [
+        DataCell(Text(scheduledMatches[i].homeTeamName)),
+        DataCell(
+          Text(scheduledMatches[i].matchResult.score ?? "0 : 0"),
+        ),
+        DataCell(Text(scheduledMatches[i].awayTeamName)),
+        DataCell(Text(scheduledMatches[i].dateTime.toString()))
+      ]));
     }
 
     return DataTable(
