@@ -5,11 +5,11 @@ import 'package:intl/intl.dart';
 class PLeagueSource extends DataTableSource {
   List<PLeagueMatch> data = List<PLeagueMatch>();
 
-  PLeagueSource(this.data) : super();
+  PLeagueSource() : super();
 
   @override
   DataRow getRow(int index) {
-    final f = DateFormat("EEEE MMM d, y, h:mm a");
+    final f = DateFormat("M/d/y, h:mm a");
     return DataRow.byIndex(index: index, cells: [
         DataCell(Text(this.data[index].homeTeamName)),
         DataCell(

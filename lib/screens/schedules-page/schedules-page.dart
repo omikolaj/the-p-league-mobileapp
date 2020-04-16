@@ -15,12 +15,16 @@ class SchedulesPage extends StatefulWidget {
 class _SchedulesPageState extends State<SchedulesPage> {
   Future<List<PLeagueSession>> futureScheduledMatches;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  int _lastRowsPerPage = PaginatedDataTable.defaultRowsPerPage;
+  PLeagueSource dataSource = PLeagueSource();
 
   @override
   void initState() {
     super.initState();
-    _populateScheduledMatches();
+    _populateScheduledMatches().then((data){
+      List<PLeagueSession> sessions = data;
+      List<PLeagueMatch> scheduledMatches = sessions.expand((session) => session.matches).toList();
+      this.dataSource.data = scheduledMatches;
+    });
   }
 
   Future _populateScheduledMatches() {
@@ -40,19 +44,13 @@ class _SchedulesPageState extends State<SchedulesPage> {
               return Text('Error: ${snapshot.error}');
             else
               return SingleChildScrollView(
-                  child: SafeArea(child: _createTableView(context, snapshot)));
+                  child: SafeArea(child: _createTableView()));
         }
       },
     );
   }
 
-  Widget _createTableView(BuildContext context, AsyncSnapshot snapshot) {
-    List<PLeagueSession> sessions = snapshot.data;
-    List<PLeagueMatch> scheduledMatches =
-        sessions.expand((session) => session.matches).toList();
-
-    PLeagueSource dataSource = PLeagueSource(scheduledMatches);
-
+  Widget _createTableView() {
     return PaginatedDataTable(
       columns: [
         DataColumn(label: Text("Home")),
