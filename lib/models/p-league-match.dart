@@ -36,4 +36,5 @@ class PLeagueMatch{
       matchResult: MatchResult.fromJson(json["matchResult"]),
     );
   }
+
 }

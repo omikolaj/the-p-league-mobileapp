@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:the_p_league_mobileapp/models/p-league-session.dart';
 import 'package:the_p_league_mobileapp/screens/gallery-page/gallery-page.dart';
+import 'package:the_p_league_mobileapp/screens/schedules-page/p-league-source.dart';
 import 'package:the_p_league_mobileapp/screens/schedules-page/schedules-page.dart';
+import 'package:the_p_league_mobileapp/services/schedules-service.dart';
 
 class HomePage extends StatefulWidget{
   HomePage({Key key}) : super(key: key);
@@ -11,11 +14,12 @@ class HomePage extends StatefulWidget{
 }
 
 class _HomePageState extends State<HomePage>{
-  int _selectedIndex = 0;    
+  int _selectedIndex = 0; 
+  static PLeagueSource dataSource = PLeagueSource();
 
   static const TextStyle optionStyle = TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   final List<Widget> _menuOptions = <Widget>[
-    SchedulesPage(),
+    SchedulesPage(dataSource: dataSource),
     Text(
       'Stats',
       style: optionStyle
@@ -23,10 +27,8 @@ class _HomePageState extends State<HomePage>{
     GalleryPage()
   ];
 
-  
-
   void _onMenuSelected(int index){
-    setState(() {      
+    setState(() {    
       _selectedIndex = index;
     });
   }

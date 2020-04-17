@@ -4,9 +4,11 @@ import 'package:the_p_league_mobileapp/models/p-league-match.dart';
 import 'package:the_p_league_mobileapp/models/p-league-session.dart';
 import 'package:the_p_league_mobileapp/screens/schedules-page/p-league-source.dart';
 import 'package:the_p_league_mobileapp/services/schedules-service.dart';
+import 'dart:io';
 
 class SchedulesPage extends StatefulWidget {
-  SchedulesPage({Key key}) : super(key: key);
+  SchedulesPage({Key key, PLeagueSource dataSource}) : dataSource = dataSource ;
+  final PLeagueSource dataSource;
 
   @override
   _SchedulesPageState createState() => _SchedulesPageState();
@@ -15,26 +17,21 @@ class SchedulesPage extends StatefulWidget {
 class _SchedulesPageState extends State<SchedulesPage> {
   Future<List<PLeagueSession>> futureScheduledMatches;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  PLeagueSource dataSource = PLeagueSource();
-
+  
   @override
   void initState() {
     super.initState();
-    _populateScheduledMatches().then((data){
-      List<PLeagueSession> sessions = data;
-      List<PLeagueMatch> scheduledMatches = sessions.expand((session) => session.matches).toList();
-      this.dataSource.data = scheduledMatches;
-    });
+    //_populateScheduledMatches();
   }
 
-  Future _populateScheduledMatches() {
-    return this.futureScheduledMatches = SchedulesService().fetchSchedules();
-  }
+  //Future _populateScheduledMatches() {
+    //return this.futureScheduledMatches = SchedulesService().fetchSchedules();
+  //}
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: this.futureScheduledMatches,
+      future: widget.dataSource.sessions,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -53,14 +50,37 @@ class _SchedulesPageState extends State<SchedulesPage> {
   Widget _createTableView() {
     return PaginatedDataTable(
       columns: [
-        DataColumn(label: Text("Home")),
-        DataColumn(label: Text("Result")),
-        DataColumn(label: Text("Away")),
-        DataColumn(label: Text("Date"))
+        DataColumn(label: Text("Home"), onSort: (columnIndex, asc){
+          setState(() {
+            widget.dataSource.ascending = asc;
+            widget.dataSource.sortData(columnIndex, asc);
+          });
+        }),
+        DataColumn(label: Text("Result"), onSort: (columnIndex, asc){
+          setState(() {
+            widget.dataSource.ascending = asc;
+            widget.dataSource.sortData(columnIndex, asc);
+          });
+        }),
+        DataColumn(label: Text("Away"), onSort: (columnIndex, asc){
+          setState(() {
+            widget.dataSource.ascending = asc;
+            widget.dataSource.sortData(columnIndex, asc);
+          });
+        }),
+        DataColumn(label: Text("Date"), onSort: (columnIndex, asc){
+          setState(() {
+            widget.dataSource.ascending = asc;
+            widget.dataSource.sortData(columnIndex, asc);
+          });
+        })
       ],
-      source: dataSource,
+      source: widget.dataSource,
       header: Text("P League Mathes"),
       rowsPerPage: _rowsPerPage,
+      columnSpacing: 26,
+      sortColumnIndex: widget.dataSource.sortingIndex,
+      sortAscending: widget.dataSource.ascending,
     );
   }
 }
