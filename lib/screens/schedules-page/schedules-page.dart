@@ -17,7 +17,9 @@ class SchedulesPage extends StatefulWidget {
 class _SchedulesPageState extends State<SchedulesPage> {
   Future<List<PLeagueSession>> futureScheduledMatches;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  
+  bool sortAsc = true;
+  int sortColumnIndex = Columns.Date;
+
   @override
   void initState() {
     super.initState();
@@ -47,30 +49,40 @@ class _SchedulesPageState extends State<SchedulesPage> {
     );
   }
 
+  void _setUpTableForSorting(int columnIndex, bool asc){
+    // change the table to display all records before we sort
+    // navigating between pages is broken and resets the sort display arrow
+    _rowsPerPage = widget.dataSource.data.length;
+    sortAsc = asc;
+    sortColumnIndex = columnIndex;
+  }
+
   Widget _createTableView() {
+    print("sortAscending: $sortAsc");
     return PaginatedDataTable(
       columns: [
         DataColumn(label: Text("Home"), onSort: (columnIndex, asc){
           setState(() {
-            widget.dataSource.ascending = asc;
+            _setUpTableForSorting(columnIndex, asc);
+            
             widget.dataSource.sortData(columnIndex, asc);
           });
         }),
         DataColumn(label: Text("Result"), onSort: (columnIndex, asc){
           setState(() {
-            widget.dataSource.ascending = asc;
+            _setUpTableForSorting(columnIndex, asc);
             widget.dataSource.sortData(columnIndex, asc);
           });
         }),
         DataColumn(label: Text("Away"), onSort: (columnIndex, asc){
-          setState(() {
-            widget.dataSource.ascending = asc;
+          setState(() {         
+            _setUpTableForSorting(columnIndex, asc);
             widget.dataSource.sortData(columnIndex, asc);
           });
         }),
         DataColumn(label: Text("Date"), onSort: (columnIndex, asc){
           setState(() {
-            widget.dataSource.ascending = asc;
+            _setUpTableForSorting(columnIndex, asc);
             widget.dataSource.sortData(columnIndex, asc);
           });
         })
@@ -79,8 +91,14 @@ class _SchedulesPageState extends State<SchedulesPage> {
       header: Text("P League Mathes"),
       rowsPerPage: _rowsPerPage,
       columnSpacing: 26,
-      sortColumnIndex: widget.dataSource.sortingIndex,
-      sortAscending: widget.dataSource.ascending,
+      sortColumnIndex: sortColumnIndex,
+      sortAscending: sortAsc,
+      availableRowsPerPage: <int>[10, 15, widget.dataSource.data.length],
+      onRowsPerPageChanged: (r) {
+        setState(() {
+          _rowsPerPage = r;
+        });
+      },
     );
   }
 }

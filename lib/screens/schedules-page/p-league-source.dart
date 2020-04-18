@@ -36,36 +36,28 @@ class PLeagueSource extends DataTableSource {
   });
 
   void sortData(int columnIndex, bool ascending){
-    switch (columnIndex) {
+    this.sortingIndex = columnIndex;
+    RegExp teamNameReg = new RegExp(r"\s+\b|\b\s");
+    data.sort((a,b) {
+      switch (columnIndex) {
       case Columns.Home:
-        this.sortingIndex = columnIndex;
-        data.sort((a,b) {
-          return ascending ? b.homeTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), "").compareTo(a.homeTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), "")) : a.homeTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), "").compareTo(b.homeTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), ""));
-        });
-        break;
+        String aHomeTeam = a.homeTeamName.toLowerCase().replaceAll(teamNameReg, "");
+        String bHomeTeam = b.homeTeamName.toLowerCase().replaceAll(teamNameReg, "");
+        return ascending ? aHomeTeam.compareTo(bHomeTeam) : bHomeTeam.compareTo(aHomeTeam);
       case Columns.Result:
-        this.sortingIndex = columnIndex;
-        data.sort((a,b) {
-          return ascending ? b.matchResult.homeTeamScore.compareTo(a.matchResult.awayTeamScore) : a.matchResult.homeTeamScore.compareTo(b.matchResult.awayTeamScore);
-        });
-        break;
+        return ascending ? b.matchResult.homeTeamScore.compareTo(a.matchResult.awayTeamScore) : a.matchResult.homeTeamScore.compareTo(b.matchResult.awayTeamScore);
       case Columns.Away:
-        this.sortingIndex = columnIndex;
-        data.sort((a,b) {
-          return ascending ? b.awayTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), "").compareTo(a.awayTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), "")) : a.awayTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), "").compareTo(b.awayTeamName.replaceAll(new RegExp(r"\s+\b|\b\s"), ""));
-        });
-        break;
+        String aAwayTeam = a.awayTeamName.toLowerCase().replaceAll(teamNameReg, "");
+        String bAwayTeam = b.awayTeamName.toLowerCase().replaceAll(teamNameReg, "");
+        return ascending ? aAwayTeam.compareTo(bAwayTeam) : bAwayTeam.compareTo(aAwayTeam);
       case Columns.Date:
-        this.sortingIndex = columnIndex;
-        data.sort((a,b) {
-          DateTime aDate = DateTime.fromMillisecondsSinceEpoch(a.dateTime * 1000).toLocal();
-          DateTime bDate = DateTime.fromMillisecondsSinceEpoch(b.dateTime * 1000).toLocal();
-          return ascending ? bDate.compareTo(aDate) : aDate.compareTo(bDate);
-        });
-        break;
+        DateTime aDate = DateTime.fromMillisecondsSinceEpoch(a.dateTime * 1000).toLocal();
+        DateTime bDate = DateTime.fromMillisecondsSinceEpoch(b.dateTime * 1000).toLocal();
+        return ascending ? aDate.compareTo(bDate) : bDate.compareTo(aDate); 
       default:
-        break;
+        return 0;
     }
+    });
   }
 
   @override
